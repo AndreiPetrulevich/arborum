@@ -33,6 +33,9 @@ class ManufacturerServiceMockitoTest {
     @Mock
     ManufacturerMapper manufacturerMapper;
 
+    @Mock
+    ManufacturerDto manufacturerDto;
+
     @InjectMocks
     ManufacturerService manufacturerService;
 
@@ -80,5 +83,61 @@ class ManufacturerServiceMockitoTest {
                 () -> assertEquals(APPLE_COMPANY_NAME, manufacturerList.get(0).getName())
         );
     }
-    // TODO сделать методы проверки сохранения и удаления
+
+    @Test
+    void deleteManufacturerByIdTest() {
+        //when
+        manufacturerService.deleteById(1L);
+
+        //then
+        then(manufacturerDao).should().deleteById(1L);
+    }
+
+    @Test
+    void saveManufacturerTest() {
+        //given
+        given(manufacturerDao.save(any(Manufacturer.class))).willReturn(Manufacturer.builder()
+                .id(1L)
+                .name(APPLE_COMPANY_NAME)
+                .build());
+
+        given(manufacturerMapper.toManufacturerDto(any())).will(
+                (invocation) -> {
+                    Manufacturer manufacturer = (Manufacturer) invocation.getArgument(0);
+
+                    if (manufacturer == null) {
+                        return null;
+                    }
+
+                    return ManufacturerDto.builder()
+                            .id(manufacturer.getId())
+                            .name(manufacturer.getName())
+                            .build();
+                });
+
+        given(manufacturerMapper.toManufacturer(any())).will(
+                (invocation) -> {
+                    ManufacturerDto manufacturerDto = (ManufacturerDto) invocation.getArgument(0);
+
+                    if (manufacturerDto == null) {
+                        return null;
+                    }
+
+                    return Manufacturer.builder()
+                            .id(manufacturerDto.getId())
+                            .name(manufacturerDto.getName())
+                            .build();
+                });
+
+        //when
+        ManufacturerDto savedManufacturerDto = manufacturerService.save(manufacturerDto);
+
+        //then
+        then(manufacturerDao).should().save(any(Manufacturer.class));
+
+        assertAll(
+                () -> assertEquals(1L, savedManufacturerDto.getId()),
+                () -> assertEquals(APPLE_COMPANY_NAME, savedManufacturerDto.getName())
+        );
+    }
 }

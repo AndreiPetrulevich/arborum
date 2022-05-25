@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Import;
 import ru.arborum.config.ShopConfig;
 import ru.arborum.entity.Manufacturer;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest //подтягивает все конфиги, бины, которые относятся к слою работы с базой данны
@@ -38,6 +40,72 @@ class ManufacturerDaoDataJpaTest {
         );
     }
 
-    // TODO findAll, delete, update
-    // TODO попробовать через persistenceContext(либо через Autowired) (либо через EntityManager)
+    @Test
+    public void findAllTest() {
+        manufacturerDao.save(Manufacturer.builder()
+                .id(1L)
+                .name(APPLE_COMPANY_NAME)
+                .build());
+        manufacturerDao.save(Manufacturer.builder()
+                .id(2L)
+                .name(MICROSOFT_COMPANY_NAME)
+                .build());
+
+        List<Manufacturer> manufacturerList = manufacturerDao.findAll();
+
+        assertAll(
+                () -> assertEquals(2, manufacturerList.size()),
+
+                () -> assertEquals(1L, manufacturerList.get(0).getId()),
+                () -> assertEquals(APPLE_COMPANY_NAME, manufacturerList.get(0).getName()),
+                () -> assertEquals(0, manufacturerList.get(0).getVersion()),
+                () -> assertEquals("User", manufacturerList.get(0).getCreatedBy()),
+                () -> assertNotNull(manufacturerList.get(0).getCreatedDate()),
+                () -> assertEquals("User", manufacturerList.get(0).getLastModifiedBy()),
+                () -> assertNotNull(manufacturerList.get(0).getLastModifiedDate()),
+
+                () -> assertEquals(2L, manufacturerList.get(1).getId()),
+                () -> assertEquals(MICROSOFT_COMPANY_NAME, manufacturerList.get(1).getName()),
+                () -> assertEquals(0, manufacturerList.get(1).getVersion()),
+                () -> assertEquals("User", manufacturerList.get(1).getCreatedBy()),
+                () -> assertNotNull(manufacturerList.get(1).getCreatedDate()),
+                () -> assertEquals("User", manufacturerList.get(1).getLastModifiedBy()),
+                () -> assertNotNull(manufacturerList.get(1).getLastModifiedDate())
+        );
+    }
+
+    @Test
+    public void deleteTest() {
+        manufacturerDao.save(Manufacturer.builder()
+                .name(APPLE_COMPANY_NAME)
+                .build());
+
+        //manufacturerDao.deleteById(1L);
+        manufacturerDao.deleteAll();
+    }
+
+    @Test
+    public void updateTest() {
+        Manufacturer savedAppleManufacturer = manufacturerDao.save(Manufacturer.builder()
+                .id(1L)
+                .name(APPLE_COMPANY_NAME)
+                .build());
+
+        assertAll(
+                () -> assertEquals(1L, savedAppleManufacturer.getId()),
+                () -> assertEquals(APPLE_COMPANY_NAME, savedAppleManufacturer.getName())
+        );
+
+        Manufacturer savedMicrosoftManufacturer = manufacturerDao.save(Manufacturer.builder()
+                .id(1L)
+                .name(MICROSOFT_COMPANY_NAME)
+                .build());
+
+        assertAll(
+                () -> assertEquals(1L, savedMicrosoftManufacturer.getId()),
+                () -> assertEquals(MICROSOFT_COMPANY_NAME, savedMicrosoftManufacturer.getName())
+        );
+    }
+
+    // TODO* попробовать через persistenceContext(либо через Autowired) (либо через EntityManager)
 }
