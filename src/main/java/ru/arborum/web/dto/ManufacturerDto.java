@@ -11,7 +11,7 @@ import lombok.*;
 public class ManufacturerDto {
 
     @JsonProperty(value = "id")
-    private Long Id;
+    private Long id;
     private String name;
 //    private List<String> products;
 }
