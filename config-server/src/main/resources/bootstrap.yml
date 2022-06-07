@@ -1,0 +1,10 @@
+security:
+  endpoint:
+    decrypt:
+      enabled: false
+
+encrypt:
+  key-store:
+    location: ${ENCRYPT_KEYSTORE_LOCATION:file:///Users/k1netic/Projects/Arborum/config-server/server.jks}
+    password: ${ENCRYPT_KEYSTORE_PASSWORD:123456}
+    alias: ${ENCRYPT_KEYSTORE_ALIAS:arborumkey}
