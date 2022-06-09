@@ -1,11 +1,13 @@
 package ru.arborum.web.dto;
 
 import lombok.*;
+import ru.arborum.entity.Category;
 import ru.arborum.entity.enums.Status;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -25,4 +27,5 @@ public class ProductDto {
     @NotNull
     private Status status;
     private String manufacturer;
+    private Set<CategoryDto> categories;
 }
