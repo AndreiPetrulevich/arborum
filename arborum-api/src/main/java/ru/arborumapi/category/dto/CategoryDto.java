@@ -1,4 +1,4 @@
-package ru.arborum.web.dto;
+package ru.arborumapi.category.dto;
 
 import lombok.*;
 

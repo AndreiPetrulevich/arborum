@@ -6,14 +6,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.arborum.dao.ManufacturerDao;
-import ru.arborum.dao.ManufacturerDao;
 import ru.arborum.entity.Manufacturer;
-import ru.arborum.entity.enums.Status;
-import ru.arborum.web.dto.ManufacturerDto;
 import ru.arborum.web.dto.mapper.ManufacturerMapper;
+import ru.arborumapi.manufacturer.dto.ManufacturerDto;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

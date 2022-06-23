@@ -1,6 +1,5 @@
 package ru.arborum.web.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -16,9 +15,9 @@ import ru.arborum.dao.ManufacturerDao;
 import ru.arborum.dao.ProductDao;
 import ru.arborum.entity.Category;
 import ru.arborum.entity.Manufacturer;
-import ru.arborum.entity.enums.Status;
-import ru.arborum.web.dto.ProductDto;
 import ru.arborum.web.dto.mapper.CategoryMapper;
+import ru.arborumapi.common.enums.Status;
+import ru.arborumapi.product.dto.ProductDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

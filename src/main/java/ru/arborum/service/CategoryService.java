@@ -6,8 +6,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import ru.arborum.dao.CategoryDao;
 import ru.arborum.entity.Category;
-import ru.arborum.web.dto.CategoryDto;
 import ru.arborum.web.dto.mapper.CategoryMapper;
+import ru.arborumapi.category.dto.CategoryDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

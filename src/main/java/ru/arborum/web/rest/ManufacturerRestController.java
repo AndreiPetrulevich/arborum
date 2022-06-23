@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.arborum.service.ManufacturerService;
-import ru.arborum.web.dto.ManufacturerDto;
+import ru.arborumapi.manufacturer.dto.ManufacturerDto;
 
 import java.net.URI;
 import java.util.List;
