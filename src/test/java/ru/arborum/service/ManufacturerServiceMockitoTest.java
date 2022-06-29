@@ -9,8 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.arborum.dao.ManufacturerDao;
 import ru.arborum.entity.Manufacturer;
-import ru.arborum.web.dto.ManufacturerDto;
 import ru.arborum.web.dto.mapper.ManufacturerMapper;
+import ru.arborumapi.manufacturer.dto.ManufacturerDto;
 
 import java.util.ArrayList;
 import java.util.List;

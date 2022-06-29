@@ -7,8 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.arborum.service.ProductService;
-import ru.arborum.web.dto.ProductDto;
-import ru.arborum.web.dto.ProductManufacturerDto;
+import ru.arborumapi.product.dto.ProductDto;
 
 import java.net.URI;
 import java.util.List;
@@ -23,11 +22,6 @@ public class ProductRestController {
     @GetMapping
     public List<ProductDto> getProductList() {
         return productService.findAll();
-    }
-
-    @GetMapping("/info")
-    public List<ProductManufacturerDto> getFullInfoProductList() {
-        return productService.findFullInfo();
     }
 
     @GetMapping("/{productId}")

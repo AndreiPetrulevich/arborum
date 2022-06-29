@@ -9,9 +9,8 @@ import ru.arborum.dao.ManufacturerDao;
 import ru.arborum.dao.ProductDao;
 import ru.arborum.entity.Product;
 import ru.arborum.entity.enums.Status;
-import ru.arborum.web.dto.ProductDto;
-import ru.arborum.web.dto.ProductManufacturerDto;
 import ru.arborum.web.dto.mapper.ProductMapper;
+import ru.arborumapi.product.dto.ProductDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -76,11 +75,4 @@ public class ProductService {
         });
     }
 
-
-    public List<ProductManufacturerDto> findFullInfo() {
-        return productDao.findAll()
-                .stream()
-                .map(productMapper::toProductManufacturerDto)
-                .collect(Collectors.toList());
-    }
 }

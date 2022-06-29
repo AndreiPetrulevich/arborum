@@ -1,4 +1,4 @@
-package ru.arborum.web.dto;
+package ru.arborumapi.manufacturer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -10,8 +10,6 @@ import lombok.*;
 @Builder
 public class ManufacturerDto {
 
-    @JsonProperty(value = "id")
     private Long id;
     private String name;
-//    private List<String> products;
 }

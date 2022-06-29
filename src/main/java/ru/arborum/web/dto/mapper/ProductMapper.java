@@ -6,8 +6,7 @@ import org.mapstruct.Mapping;
 import ru.arborum.dao.ManufacturerDao;
 import ru.arborum.entity.Manufacturer;
 import ru.arborum.entity.Product;
-import ru.arborum.web.dto.ProductDto;
-import ru.arborum.web.dto.ProductManufacturerDto;
+import ru.arborumapi.product.dto.ProductDto;
 
 
 import java.util.NoSuchElementException;
@@ -17,9 +16,6 @@ public interface ProductMapper {
     Product toProduct(ProductDto productDto, @Context ManufacturerDao manufacturerDao);
 
     ProductDto toProductDto(Product product);
-
-    @Mapping(source = "manufacturer", target = "manufacturerDto")
-    ProductManufacturerDto toProductManufacturerDto(Product product);
 
     default Manufacturer getManufacturer(String manufacturer, @Context ManufacturerDao manufacturerDao) {
         return manufacturerDao.findByName(manufacturer).orElseThrow(NoSuchElementException::new);

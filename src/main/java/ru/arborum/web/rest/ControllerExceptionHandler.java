@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO REST exception
 
 @ControllerAdvice
 public class ControllerExceptionHandler {

@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -35,6 +36,13 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
+
+    @ManyToMany
+    @JoinTable(name = "PRODUCT_CATEGORY",
+    joinColumns = @JoinColumn(name = "PRODUCT_ID"),
+    inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
+    private Set<Category> categories;
+
 
 
     @Version

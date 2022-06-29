@@ -1,19 +1,20 @@
-package ru.arborum.web.dto;
+package ru.arborumapi.product.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import ru.arborum.entity.enums.Status;
+import ru.arborumapi.category.dto.CategoryDto;
+import ru.arborumapi.common.enums.Status;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductManufacturerDto {
+public class ProductDto {
     private Long id;
     @NotBlank
     private String title;
@@ -25,6 +26,6 @@ public class ProductManufacturerDto {
     private LocalDate manufactureDate;
     @NotNull
     private Status status;
-    @JsonProperty(value = "manufacturer")
-    private ManufacturerDto manufacturerDto;
+    private String manufacturer;
+    private Set<CategoryDto> categories;
 }
