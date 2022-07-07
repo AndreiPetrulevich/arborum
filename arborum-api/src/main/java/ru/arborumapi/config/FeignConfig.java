@@ -12,7 +12,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.openfeign.support.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.arborumapi.category.api.CategoryGateway;
 import ru.arborumapi.manufacturer.api.ManufacturerGateway;
+import ru.arborumapi.product.api.ProductGateway;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,9 +31,26 @@ public class FeignConfig {
 
     @Bean
     public ManufacturerGateway manufacturerGateway() {
+        String manufacturerUrl = arborumApiProperties.getEndpoint().getManufacturerUrl();
+        return feignBuilder(ManufacturerGateway.class, manufacturerUrl);
+    }
+
+    @Bean
+    public CategoryGateway categoryGateway() {
+        String categoryUrl = arborumApiProperties.getEndpoint().getCategoryUrl();
+        return feignBuilder(CategoryGateway.class, categoryUrl);
+    }
+
+    @Bean
+    public ProductGateway productGateway() {
+        String productUrl = arborumApiProperties.getEndpoint().getProductUrl();
+        return feignBuilder(ProductGateway.class, productUrl);
+    }
+
+    private <T> T feignBuilder(Class<T> gatewayClass, String categoryUrl) {
         return Feign.builder()
                 .encoder(new SpringEncoder(messageConverters))
-                .decoder(new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(this.messageConverters, this.customizers))))
+                .decoder(new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(messageConverters, customizers))))
                 .retryer(new Retryer.Default(
                         arborumApiProperties.getConnection().getPeriod(),
                         arborumApiProperties.getConnection().getMaxPeriod(),
@@ -40,18 +59,18 @@ public class FeignConfig {
                 .errorDecoder(errorDecoder())
                 .options(new Request.Options(
                         arborumApiProperties.getConnection().getConnectTimeout(),
-                            TimeUnit.MILLISECONDS,
+                        TimeUnit.MILLISECONDS,
 //                        arborumApiProperties.getConnection().getConnectTimeoutUnit(),
                         arborumApiProperties.getConnection().getReadTimeout(),
 //                        arborumApiProperties.getConnection().getReadTimeoutUnit(),
-                            TimeUnit.MILLISECONDS,
+                        TimeUnit.MILLISECONDS,
                         arborumApiProperties.getConnection().isFollowRedirects()
                 ))
 //                .client()
                 .contract(new SpringMvcContract())
                 .logLevel(Logger.Level.FULL)
-                .logger(new Slf4jLogger(ManufacturerGateway.class))
-                .target(ManufacturerGateway.class, arborumApiProperties.getEndpoint().getManufacturerUrl());
+                .logger(new Slf4jLogger(gatewayClass))
+                .target(gatewayClass, categoryUrl);
     }
 
     private ErrorDecoder errorDecoder() {

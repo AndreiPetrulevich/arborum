@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.concurrent.TimeUnit;
-
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "arborum.api")
@@ -18,6 +16,8 @@ public class ArborumApiProperties {
     @Setter
     public static class Endpoint{
         private String manufacturerUrl;
+        private String categoryUrl;
+        private String productUrl;
     }
 
     @Getter
